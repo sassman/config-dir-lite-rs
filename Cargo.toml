@@ -2,10 +2,15 @@
 name = "dirs-lite"
 version = "1.0.0"
 edition = "2024"
+rust-version = "1.85"
 authors = ["Sven Kanoldt <sven@d34dl0ck.me>"]
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/sassman/dirs-lite-rs"
+documentation = "https://docs.rs/dirs-lite"
+readme = "README.md"
 description = "Get platform-specific config, data, and cache directories. Supports XDG-style on macOS. No dependencies."
+keywords = ["xdg", "directories", "config", "cache", "path"]
+categories = ["filesystem", "os"]
 
 [dependencies]
 
