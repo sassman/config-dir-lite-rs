@@ -330,12 +330,12 @@ mod tests {
     fn windows_data_dir_uses_localappdata() {
         let original = env::var("LOCALAPPDATA").ok();
         // SAFETY: Tests run single-threaded with --test-threads=1
-        unsafe { set_var("LOCALAPPDATA", "C:\\Users\\testuser\\AppData\\Local") };
+        unsafe { set_var("LOCALAPPDATA", "C:\\Users\\runneradmin\\AppData\\Local") };
 
         let result = data_dir();
         assert_eq!(
             result,
-            Some(PathBuf::from("C:\\Users\\testuser\\AppData\\Local"))
+            Some(PathBuf::from("C:\\Users\\runneradmin\\AppData\\Local"))
         );
 
         restore_var("LOCALAPPDATA", original);
