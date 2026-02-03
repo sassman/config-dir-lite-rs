@@ -1,0 +1,17 @@
+[package]
+name = "config-dir-lite"
+version = "1.0.0"
+edition = "2024"
+authors = ["Sven Kanoldt <sven@d34dl0ck.me>"]
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/sassman/config-dir-lite-rs"
+description = "Get platform-specific config directories, can favor XDG-style on MacOS, no dependencies."
+
+[dependencies]
+
+[features]
+default = []
+
+# this is for MacOS users who do favor the XDG style config paths `~/.config`
+# over the MacOS style `~/Library/Application Support`
+favor-xdg-style = []
