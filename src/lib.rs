@@ -164,6 +164,7 @@ mod tests {
         }
     }
 
+    #[cfg(any(target_os = "linux", target_os = "macos"))]
     fn restore_var_os(key: &str, original: Option<std::ffi::OsString>) {
         // SAFETY: Tests run single-threaded with --test-threads=1
         unsafe {
