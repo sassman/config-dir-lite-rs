@@ -41,7 +41,9 @@ pub fn config_dir() -> Option<PathBuf> {
         })
     } else if cfg!(target_os = "windows") {
         // Windows: Use %APPDATA%
-        env::var_os("APPDATA").filter(|s| !s.is_empty()).map(PathBuf::from)
+        env::var_os("APPDATA")
+            .filter(|s| !s.is_empty())
+            .map(PathBuf::from)
     } else {
         // Unsupported platform
         None
@@ -85,7 +87,9 @@ pub fn data_dir() -> Option<PathBuf> {
         })
     } else if cfg!(target_os = "windows") {
         // Windows: Use %LOCALAPPDATA%
-        env::var_os("LOCALAPPDATA").filter(|s| !s.is_empty()).map(PathBuf::from)
+        env::var_os("LOCALAPPDATA")
+            .filter(|s| !s.is_empty())
+            .map(PathBuf::from)
     } else {
         // Unsupported platform
         None
@@ -129,7 +133,9 @@ pub fn cache_dir() -> Option<PathBuf> {
         })
     } else if cfg!(target_os = "windows") {
         // Windows: Use %LOCALAPPDATA%
-        env::var_os("LOCALAPPDATA").filter(|s| !s.is_empty()).map(PathBuf::from)
+        env::var_os("LOCALAPPDATA")
+            .filter(|s| !s.is_empty())
+            .map(PathBuf::from)
     } else {
         // Unsupported platform
         None
@@ -154,6 +160,16 @@ mod tests {
             match original {
                 Some(val) => set_var(key, &val),
                 None => remove_var(key),
+            }
+        }
+    }
+
+    fn restore_var_os(key: &str, original: Option<std::ffi::OsString>) {
+        // SAFETY: Tests run single-threaded with --test-threads=1
+        unsafe {
+            match original {
+                Some(val) => env::set_var(key, val),
+                None => env::remove_var(key),
             }
         }
     }
@@ -446,17 +462,6 @@ mod tests {
                 path.is_absolute(),
                 "cache_dir should return an absolute path"
             );
-        }
-    }
-
-    #[cfg(unix)]
-    fn restore_var_os(key: &str, original: Option<std::ffi::OsString>) {
-        // SAFETY: Tests run single-threaded with --test-threads=1
-        unsafe {
-            match original {
-                Some(val) => env::set_var(key, val),
-                None => env::remove_var(key),
-            }
         }
     }
 
